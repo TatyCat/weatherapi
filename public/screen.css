@@ -27,18 +27,17 @@ main{
   border-radius: 3px;
   color: whitesmoke;
   margin: 2rem;
-
 }
 
 #resultsText{
   line-height: 2;
   white-space: pre;
-  font-size: 3vh;
-  /* font-size: calc(2vh + .5vw); */
+  font-size: calc(2vh + 1vw);
   word-wrap: break-word;
   word-break: break-all;
   overflow-x: hidden;
-  padding: 0 .3vw;
+  padding: 5vw;
+  margin: 1rem;
   text-align: center;
 
 }
