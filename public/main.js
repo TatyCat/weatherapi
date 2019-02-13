@@ -44,16 +44,6 @@ const checkWeather = (url, city) => {
   })
 }
 
-// .then(zipcode => {
-//   currentWeather = zipcode
-//   console.log(currentWeather)})
-
-  
-  // if (document.querySelector('h1.hello-world')) {
-  //   document.querySelector('h1.hello-world').textContent = 'Hello, World!'
-  // }
-
-
 document.querySelector('button').addEventListener('click', userEnteredInput)
 
 
