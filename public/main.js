@@ -8,17 +8,17 @@ let city = document.querySelector('input').value
 
   const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&id=524901&appid=717c7cedff97367485dce2336644d83f&units=imperial`
   console.log(url)
-  checkWeather(url)
+  checkWeather(url, city)
 }
 
-const checkWeather = (url) => {
+const checkWeather = (url, city) => {
   fetch(url)
   .then(response => {
     if (response.status === 200){
       return response.json()
       
     }else{
-      console.log("error: "+ response)
+      displayData(`Sorry, there are no results for '${city}', please try again.`)
     }
   })
   .then(weather => {
