@@ -5,13 +5,20 @@ const displayData = (jsonResults) => {
 
 const userEnteredInput = () =>{
 let city = document.querySelector('input').value
+let url
 
-  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&id=524901&appid=717c7cedff97367485dce2336644d83f&units=imperial`
-  console.log(url)
-  checkWeather(url, city)
+  if(!isNaN(city)){
+    url = `https://api.openweathermap.org/data/2.5/weather?zip=${city}&appid=717c7cedff97367485dce2336644d83f&units=imperial`
+      console.log(url)
+
+    checkZipWeather(url, city)
+  }else{
+    url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&id=524901&appid=717c7cedff97367485dce2336644d83f&units=imperial`
+    checkCityWeather(url, city)
+  }
 }
 
-const checkWeather = (url, city) => {
+const checkCityWeather = (url, city) => {
   fetch(url)
   .then(response => {
     if (response.status === 200){
@@ -25,8 +32,6 @@ const checkWeather = (url, city) => {
     console.log(weather)
     let weatherData = 
     `The City of ${weather.city.name}'s Weather for Today:`
-    + 
-    "\r\n"
     +  
     "\r\n"
     + 
@@ -38,9 +43,38 @@ const checkWeather = (url, city) => {
     + 
     "\r\n"
     + 
-     ` with... ${weather.list[0].weather[0].description}`
+     ` with...${weather.list[0].weather[0].description}`
     
     displayData(weatherData)    
+  })
+}
+
+const checkZipWeather = (url, zip) => {
+fetch(url)
+  .then(response => {
+    if (response.status === 200){
+      return response.json()
+      
+    }else{
+      displayData(`Sorry, there are no results for '${zip}', please try again.`)
+    }
+  })
+  .then(zipweather => {
+    let zipweatherData = `The City of ${zipweather.name}'s Weather for Today:`
+    +  
+    "\r\n"
+    + 
+     `Temperature: ${zipweather.main.temp}`
+    + 
+    "\r\n"
+    +
+    `Humidity: ${zipweather.main.humidity}`
+    + 
+    "\r\n"
+    + 
+     ` with...${zipweather.weather[0].description}`
+    
+    displayData(zipweatherData)    
   })
 }
 
