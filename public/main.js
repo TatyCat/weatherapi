@@ -1,11 +1,8 @@
 
-const displayData = (jsonResults) => {
-  document.querySelector('#resultsText').textContent = jsonResults
-}
 
 const userEnteredInput = () =>{
-let city = document.querySelector('input').value
-let url
+  let city = document.querySelector('input').value
+  let url
 
   if(!isNaN(city)){
     url = `https://api.openweathermap.org/data/2.5/weather?zip=${city}&appid=717c7cedff97367485dce2336644d83f&units=imperial`
@@ -45,7 +42,8 @@ const checkCityWeather = (url, city) => {
     + 
      ` with...${weather.list[0].weather[0].description}`
     
-    displayData(weatherData)    
+    displayData(weatherData) 
+    addWeatherToHTML(weather.city.name, zipweather.main.temp, zipweather.main.humidity, zipweather.weather[0].description)   
   })
 }
 
@@ -60,22 +58,32 @@ fetch(url)
     }
   })
   .then(zipweather => {
-    let zipweatherData = `The City of ${zipweather.name}'s Weather for Today:`
+    addWeatherToHTML(zipweather.name, zipweather.main.temp, zipweather.main.humidity, zipweather.weather[0].description)
+  
+  })
+}
+
+
+const displayData = (jsonResults) => {
+  document.querySelector('#resultsText').textContent = jsonResults
+}
+
+const addWeatherToHTML = (city, temp, humidity, forecast) =>{
+ let textContent = `The City of ${city}'s Weather for Today:`
     +  
     "\r\n"
     + 
-     `Temperature: ${zipweather.main.temp}`
+     `Temperature: ${temp}`
     + 
     "\r\n"
     +
-    `Humidity: ${zipweather.main.humidity}`
+    `Humidity: ${humidity}`
     + 
     "\r\n"
     + 
-     ` with...${zipweather.weather[0].description}`
+     ` with...${forecast}`
     
-    displayData(zipweatherData)    
-  })
+    displayData(textContent)    
 }
 
 document.querySelector('button').addEventListener('click', userEnteredInput)

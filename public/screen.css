@@ -31,11 +31,12 @@ main{
 
 #resultsText{
   line-height: 2;
-  white-space: pre;
+  white-space: pre; /* <-This is causing an issue with trailing off pg*/
   font-size: calc(2vh + 1vw);
   word-wrap: break-word;
   word-break: break-all;
-  overflow-x: hidden;
+  overflow: hidden;
+  overflow-wrap: break-word;
   padding: 5vw;
   margin: 1rem;
   text-align: center;
